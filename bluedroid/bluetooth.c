@@ -171,13 +171,10 @@ int bt_enable() {
 
         if (!ret) {
             break;
-        } else if (errno == EALREADY) {
-            LOGW("Bluetoothd already started, unexpectedly!");
-            break;
         }
 
         close(hci_sock);
-        usleep(100000);  // 100 ms retry delay
+        usleep(10000);  // 10 ms retry delay
     }
     if (attempt == 0) {
         LOGE("%s: Timeout waiting for HCI device to come up, error- %d, ",
